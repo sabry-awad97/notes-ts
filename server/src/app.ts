@@ -15,8 +15,10 @@ import cors from 'cors';
 import hbs from 'hbs';
 import { __dirname } from './approotdir.js';
 import { router as indexRouter } from './routes/index.js';
+import { InMemoryNotesStore } from './routes/models/notes-memory.js';
 
 export const app = express();
+export const NotesStore = new InMemoryNotesStore();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
