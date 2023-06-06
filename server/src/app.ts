@@ -11,6 +11,7 @@ import {
   onError,
   onListening,
 } from './app-support.js';
+import cors from 'cors';
 import hbs from 'hbs';
 import { __dirname } from './approotdir.js';
 
@@ -24,18 +25,12 @@ hbs.registerPartials(path.join(__dirname, 'partials'));
 export const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-
 app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
