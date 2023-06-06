@@ -14,7 +14,16 @@ router.get('/add', (req, res, next) => {
 });
 
 // Save Note (update)
-router.post('/save', async (req, res, next) => {
+router.post<
+  {},
+  {},
+  {
+    docreate: 'create' | 'update';
+    notekey: string;
+    title: string;
+    body: string;
+  }
+>('/save', async (req, res, next) => {
   try {
     let note: Note;
     if (req.body.docreate === 'create') {
@@ -36,9 +45,9 @@ router.post('/save', async (req, res, next) => {
   }
 });
 
-router.get('/view', async (req, res, next) => {
+router.get<{}, {}, {}, { key: string }>('/view', async (req, res, next) => {
   try {
-    let note = await notes.read(req.query.key as string);
+    let note = await notes.read(req.query.key);
     res.render('noteview', {
       title: note ? note.title : '',
       notekey: req.query.key,
@@ -49,9 +58,9 @@ router.get('/view', async (req, res, next) => {
   }
 });
 
-router.get('/edit', async (req, res, next) => {
+router.get<{}, {}, {}, { key: string }>('/edit', async (req, res, next) => {
   try {
-    let note = await notes.read(req.query.key as string);
+    let note = await notes.read(req.query.key);
     res.render('noteedit', {
       title: note ? 'Edit ' + note.title : 'Add a Note',
       docreate: false,
@@ -63,9 +72,9 @@ router.get('/edit', async (req, res, next) => {
   }
 });
 
-router.get('/destroy', async (req, res, next) => {
+router.get<{}, {}, {}, { key: string }>('/destroy', async (req, res, next) => {
   try {
-    let note = await notes.read(req.query.key as string);
+    let note = await notes.read(req.query.key);
     res.render('notedestroy', {
       title: note ? note.title : '',
       notekey: req.query.key,
@@ -77,11 +86,14 @@ router.get('/destroy', async (req, res, next) => {
 });
 
 // Really destroy note (destroy)
-router.post('/destroy/confirm', async (req, res, next) => {
-  try {
-    await notes.destroy(req.body.notekey);
-    res.redirect('/');
-  } catch (err) {
-    next(err);
+router.post<{}, {}, { notekey: string }>(
+  '/destroy/confirm',
+  async (req, res, next) => {
+    try {
+      await notes.destroy(req.body.notekey);
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
