@@ -3,3 +3,9 @@ export interface IError {
   status: number;
   stack: string;
 }
+
+export interface INote {
+  key: string;
+  title: string;
+  body: string;
+}
