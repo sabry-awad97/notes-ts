@@ -14,6 +14,7 @@ import {
 import cors from 'cors';
 import hbs from 'hbs';
 import { __dirname } from './approotdir.js';
+import { router as indexRouter } from './routes/index.js';
 
 export const app = express();
 
@@ -25,15 +26,14 @@ hbs.registerPartials(path.join(__dirname, 'partials'));
 export const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
-
 app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
 
 app.use(handle404);
 app.use(basicErrorHandler);
