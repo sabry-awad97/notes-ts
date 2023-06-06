@@ -3,6 +3,7 @@ import path from 'path';
 import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
+import cookieParser from 'cookie-parser';
 import {
   basicErrorHandler,
   handle404,
@@ -11,6 +12,7 @@ import {
   onListening,
 } from './app-support.js';
 import hbs from 'hbs';
+import { __dirname } from './approotdir.js';
 
 export const app = express();
 
@@ -36,6 +38,7 @@ app.get('/', (req, res) => {
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use(handle404);
 app.use(basicErrorHandler);
