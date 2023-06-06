@@ -5,7 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "cross-env DEBUG=notes:* ts-node --transpile-only src/app.ts"
+    "start": "cross-env DEBUG=notes:* ts-node --transpile-only src/app.ts",
+    "server1": "cross-env DEBUG=notes:* PORT=3001 ts-node --transpile-only src/app.ts",
+    "server2": "cross-env DEBUG=notes:* PORT=3002 ts-node --transpile-only src/app.ts"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
