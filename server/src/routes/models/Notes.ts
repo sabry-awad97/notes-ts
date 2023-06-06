@@ -34,12 +34,12 @@ export abstract class AbstractNotesStore {
   /**
    * Asynchronous method to update a note
    */
-  abstract update(key: string, title: string, body: string): Promise<void>;
+  abstract update(key: string, title: string, body: string): Promise<Note>;
 
   /**
    * Asynchronous method to create a new note
    */
-  abstract create(key: string, title: string, body: string): Promise<void>;
+  abstract create(key: string, title: string, body: string): Promise<Note>;
 
   /**
    * Asynchronous method to read a note
