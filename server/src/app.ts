@@ -3,10 +3,17 @@ import http from 'http';
 import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
-import { normalizePort, onError, onListening } from './app-support.js';
+import {
+  basicErrorHandler,
+  handle404,
+  normalizePort,
+  onError,
+  onListening,
+} from './app-support.js';
 
 export const app = express();
 export const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,6 +29,9 @@ app.get('/', (req, res) => {
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(handle404);
+app.use(basicErrorHandler);
 
 export const server = http.createServer(app);
 server.listen(port);

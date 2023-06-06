@@ -1,3 +1,4 @@
+import { ErrorRequestHandler, RequestHandler } from 'express';
 import { port, server } from './app.js';
 
 /**
@@ -51,3 +52,46 @@ export function onListening() {
     `🚀 Server is running on ${bind}` + ' ' + 'press Ctrl-C to terminate....'
   );
 }
+
+class NotFoundError extends Error {
+  status: number;
+  constructor(message: string) {
+    super(message);
+    this.status = 404;
+  }
+}
+
+/**
+ * Handle the 404 - Not Found error.
+ */
+export const handle404: RequestHandler = (req, res, next): void => {
+  const err = new NotFoundError('The requested resource was not found.');
+  next(err);
+};
+
+/**
+ * Basic error handler middleware.
+ */
+export const basicErrorHandler: ErrorRequestHandler<
+  unknown,
+  unknown,
+  unknown,
+  unknown
+> = (err, req, res, next) => {
+  if (res.headersSent) {
+    // If headers have already been sent, pass the error to the next error handler middleware
+    return next(err);
+  }
+
+  // Set the error message in the response locals
+  res.locals.message = err.message;
+
+  // Set the error object in the response locals based on the application environment
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // Set the HTTP status code of the response to the error status or default to 500 (Internal Server Error)
+  res.status(err.status || 500);
+
+  // Render the 'error' view or template to display the error
+  res.render('error');
+};
