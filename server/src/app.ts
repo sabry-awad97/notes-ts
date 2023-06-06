@@ -2,9 +2,11 @@ import http from 'http';
 
 import 'dotenv/config';
 import express from 'express';
+import logger from 'morgan';
+import { normalizePort } from './app-support';
 
 export const app = express();
-export const port = process.env.PORT || '3000';
+export const port = normalizePort(process.env.PORT || '3000');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,7 +19,9 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
+app.use(logger('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 export const server = http.createServer(app);
 server.listen(port);
