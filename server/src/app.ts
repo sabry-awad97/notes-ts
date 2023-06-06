@@ -1,5 +1,5 @@
 import http from 'http';
-
+import path from 'path';
 import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
@@ -10,8 +10,15 @@ import {
   onError,
   onListening,
 } from './app-support.js';
+import hbs from 'hbs';
 
 export const app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, 'partials'));
+
 export const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
