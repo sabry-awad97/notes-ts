@@ -3,7 +3,7 @@ import http from 'http';
 import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
-import { normalizePort } from './app-support';
+import { normalizePort, onError, onListening } from './app-support.js';
 
 export const app = express();
 export const port = normalizePort(process.env.PORT || '3000');
@@ -26,8 +26,5 @@ app.use(express.urlencoded({ extended: false }));
 export const server = http.createServer(app);
 server.listen(port);
 
-console.log(
-  `🚀 Server is running at http://localhost:${port}` +
-    ' ' +
-    'press Ctrl-C to terminate....'
-);
+server.on('error', onError);
+server.on('listening', onListening);
