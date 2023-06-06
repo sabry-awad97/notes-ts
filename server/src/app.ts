@@ -15,7 +15,8 @@ import cors from 'cors';
 import hbs from 'hbs';
 import { __dirname } from './approotdir.js';
 import { router as indexRouter } from './routes/index.js';
-import { InMemoryNotesStore } from './routes/models/notes-memory.js';
+import { router as notesRouter } from './routes/notes.js';
+import { InMemoryNotesStore } from './models/notes-memory.js';
 
 export const app = express();
 export const NotesStore = new InMemoryNotesStore();
@@ -36,6 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/notes', notesRouter);
 
 app.use(handle404);
 app.use(basicErrorHandler);
