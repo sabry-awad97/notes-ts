@@ -24,7 +24,7 @@ export const NotesStore = new InMemoryNotesStore();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-hbs.registerPartials(path.join(__dirname, 'partials'));
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 export const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
