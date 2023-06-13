@@ -3,6 +3,18 @@ import { NotesStore as notes } from '../app.js';
 import { INote } from '../models/Notes.js';
 export const router = express.Router();
 
+router.get<unknown, { notes: INote[] }>('/', async (req, res, next) => {
+  try {
+    const keyList = await notes.keyList();
+    const keyPromises = keyList.map(key => {
+      return notes.read(key);
+    });
+    res.json({ notes: await Promise.all(keyPromises) });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Save Note
 router.post<{}, INote, INote>('/save', async (req, res, next) => {
   const { key, title, body } = req.body;
