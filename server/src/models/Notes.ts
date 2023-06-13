@@ -1,4 +1,10 @@
-export class Note {
+export interface INote {
+  key: string;
+  title: string;
+  body: string;
+}
+
+export class Note implements INote {
   private _note_key: string;
   private _note_title: string;
   private _note_body: string;
@@ -34,22 +40,22 @@ export abstract class AbstractNotesStore {
   /**
    * Asynchronous method to update a note
    */
-  abstract update(key: string, title: string, body: string): Promise<Note>;
+  abstract update(key: string, title: string, body: string): Promise<INote>;
 
   /**
    * Asynchronous method to create a new note
    */
-  abstract create(key: string, title: string, body: string): Promise<Note>;
+  abstract create(key: string, title: string, body: string): Promise<INote>;
 
   /**
    * Asynchronous method to read a note
    */
-  abstract read(key: string): Promise<Note>;
+  abstract read(key: string): Promise<INote>;
 
   /**
    * Asynchronous method to delete a note
    */
-  abstract destroy(key: string): Promise<void>;
+  abstract destroy(key: string): Promise<INote>;
 
   /**
    * Asynchronous method to retrieve a list of note keys
