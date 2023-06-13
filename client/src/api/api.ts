@@ -6,7 +6,7 @@ const baseURL = import.meta.env.DEV ? 'http://localhost:3000' : '';
 const api = axios.create({ baseURL });
 
 export const getNotes = async () => {
-  let response = await api.get<{ notes: INote[] }>('/');
+  let response = await api.get<{ notes: INote[] }>('/notes');
   return response.data;
 };
 
