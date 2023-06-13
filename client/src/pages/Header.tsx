@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   title: string;
@@ -9,7 +10,7 @@ const Header: React.FC<Props> = ({ title }) => (
     <h1>{title}</h1>
     <div className="navbar">
       <p>
-        <a href="/">Home</a> | <a href="/notes/add">ADD Note</a>
+        <Link to="/">Home</Link> | <Link to="/notes/add">ADD Note</Link>
       </p>
     </div>
   </header>
