@@ -49,7 +49,9 @@ export function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port;
   console.log(
-    `🚀 Server is running on ${bind}` + ' ' + 'press Ctrl-C to terminate....'
+    `🚀 Server is running on \x1b[36m\x1b[1m${bind}\x1b[0m` +
+      ' ' +
+      'press Ctrl-C to terminate....'
   );
 }
 
@@ -93,5 +95,5 @@ export const basicErrorHandler: ErrorRequestHandler<
   res.status(err.status || 500);
 
   // Render the 'error' view or template to display the error
-  res.render('error');
+  res.json(err);
 };

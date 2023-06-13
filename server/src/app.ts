@@ -13,7 +13,6 @@ import {
 } from './app-support.js';
 import cors from 'cors';
 import { __dirname } from './approotdir.js';
-import { router as indexRouter } from './routes/index.js';
 import { router as notesRouter } from './routes/notes.js';
 import { InMemoryNotesStore } from './models/notes-memory.js';
 
@@ -28,10 +27,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+const buildDir = path.join(__dirname, '..', '..', 'client', 'build');
+
+app.use(express.static(buildDir));
+
 app.use('/notes', notesRouter);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(buildDir, 'index.html'));
+});
 
 app.use(handle404);
 app.use(basicErrorHandler);
