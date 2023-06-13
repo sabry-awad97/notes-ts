@@ -12,7 +12,6 @@ import {
   onListening,
 } from './app-support.js';
 import cors from 'cors';
-import hbs from 'hbs';
 import { __dirname } from './approotdir.js';
 import { router as indexRouter } from './routes/index.js';
 import { router as notesRouter } from './routes/notes.js';
