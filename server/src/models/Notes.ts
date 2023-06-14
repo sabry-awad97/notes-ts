@@ -91,4 +91,9 @@ export abstract class AbstractNotesStore {
    * Asynchronous method to count the number of notes
    */
   abstract count(): Promise<number>;
+
+  /**
+   * Asynchronous method to close the connection to the database
+   */
+  abstract close(): Promise<void>;
 }

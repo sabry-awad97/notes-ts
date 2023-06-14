@@ -36,4 +36,6 @@ export class InMemoryNotesStore extends AbstractNotesStore {
     let keyList = await this.keyList();
     return keyList.length;
   }
+
+  async close(): Promise<void> {}
 }
