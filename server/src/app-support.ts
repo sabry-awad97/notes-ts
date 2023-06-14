@@ -44,6 +44,9 @@ export function onError(error: NodeJS.ErrnoException) {
     case 'EADDRINUSE':
       console.error(`${bind} is already in use`);
       process.exit(1);
+    case 'ENOTESSTORE':
+      console.error(`Notes data store initialization failure because `, error);
+      process.exit(1);
     default:
       throw error;
   }
