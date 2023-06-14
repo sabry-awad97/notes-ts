@@ -34,6 +34,31 @@ export class Note implements INote {
   set body(newBody: string) {
     this._note_body = newBody;
   }
+
+  get JSON() {
+    return JSON.stringify({
+      key: this.key,
+      title: this.title,
+      body: this.body,
+    });
+  }
+
+  static fromJSON(json: any) {
+    const data = JSON.parse(json);
+    if (
+      typeof data !== 'object' ||
+      !data.hasOwnProperty('key') ||
+      typeof data.key !== 'string' ||
+      !data.hasOwnProperty('title') ||
+      typeof data.title !== 'string' ||
+      !data.hasOwnProperty('body') ||
+      typeof data.body !== 'string'
+    ) {
+      throw new Error(`Not a Note: ${json}`);
+    }
+    const note = new Note(data.key, data.title, data.body);
+    return note;
+  }
 }
 
 export abstract class AbstractNotesStore {
