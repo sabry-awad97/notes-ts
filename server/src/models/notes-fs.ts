@@ -66,7 +66,7 @@ async function readJSON(filePath: string) {
 
 async function notesDir() {
   const dir =
-    process.env.NOTES_FS_DIR || path.join(approotdir, 'notes-fs-data');
+    process.env.NOTES_FS_DIR || path.join(approotdir, '..', 'data', 'notes-fs');
   await fs.mkdir(dir, { recursive: true });
   return dir;
 }

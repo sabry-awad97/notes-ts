@@ -1,5 +1,5 @@
 import express from 'express';
-import { NotesStore as notes } from '../app.js';
+import { NotesStore as notes } from '../models/notes-store.js';
 import { INote } from '../models/Notes.js';
 
 enum NoteAPI {

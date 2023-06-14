@@ -2,7 +2,7 @@ import { Note, AbstractNotesStore, INote } from './Notes.js';
 
 const notes = {} as { [key: string]: INote };
 
-export class InMemoryNotesStore extends AbstractNotesStore {
+export default class InMemoryNotesStore extends AbstractNotesStore {
   async update(key: string, title: string, body: string): Promise<INote> {
     notes[key] = new Note(key, title, body);
     return notes[key];

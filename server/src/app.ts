@@ -18,7 +18,6 @@ import {
 import cors from 'cors';
 import { __dirname } from './approotdir.js';
 import { router as notesRouter } from './routes/notes.js';
-import { InMemoryNotesStore } from './models/notes-memory.js';
 
 // capcon.startCapture(process.stdout, function (stdout) {
 //   fs.appendFileSync('stdout.txt', stdout, 'utf8');
@@ -31,8 +30,21 @@ import { InMemoryNotesStore } from './models/notes-memory.js';
 const debug = DBG('notes:debug');
 const dbgerror = DBG('notes:error');
 
+import { useModel as useNotesModel } from './models/notes-store.js';
+
+useNotesModel(process.env.NOTES_MODEL ? process.env.NOTES_MODEL : 'memory')
+  .then(store => {
+    debug(`Using ${store} model`);
+  })
+  .catch(error => {
+    onError({
+      name: 'notes-store',
+      code: 'ENOTESSTORE',
+      message: error.message,
+    });
+  });
+
 export const app = express();
-export const NotesStore = new InMemoryNotesStore();
 
 export const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
