@@ -101,3 +101,25 @@ export const basicErrorHandler: ErrorRequestHandler<
   // Render the 'error' view or template to display the error
   res.json(err);
 };
+
+process.on('uncaughtException', function (err) {
+  console.error(`Uncaught Exception: ${err.stack || err}`);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error(`Unhandled Rejection at: ${util.inspect(p)} reason: ${reason}`);
+});
+
+async function catchProcessDeath() {
+  debug('process death...');
+  server.close();
+  process.exit(0);
+}
+
+process.on('SIGTERM', catchProcessDeath);
+process.on('SIGINT', catchProcessDeath);
+process.on('SIGHUP', catchProcessDeath);
+
+process.on('exit', () => {
+  debug('exiting...');
+});
