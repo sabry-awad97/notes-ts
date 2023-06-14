@@ -4,6 +4,7 @@ import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
 import rfs from 'rotating-file-stream';
+import DBG from 'debug';
 import cookieParser from 'cookie-parser';
 import {
   basicErrorHandler,
@@ -16,6 +17,9 @@ import cors from 'cors';
 import { __dirname } from './approotdir.js';
 import { router as notesRouter } from './routes/notes.js';
 import { InMemoryNotesStore } from './models/notes-memory.js';
+
+const debug = DBG('notes:debug');
+const dbgerror = DBG('notes:error');
 
 export const app = express();
 export const NotesStore = new InMemoryNotesStore();
@@ -60,6 +64,8 @@ app.use(basicErrorHandler);
 
 export const server = http.createServer(app);
 server.listen(port);
-
+server.on('request', req => {
+  debug(`${new Date().toISOString()} request ${req.method} ${req.url}`);
+});
 server.on('error', onError);
 server.on('listening', onListening);

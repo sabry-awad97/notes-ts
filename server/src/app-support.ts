@@ -1,5 +1,10 @@
+import util from 'util';
 import { ErrorRequestHandler, RequestHandler } from 'express';
 import { port, server } from './app.js';
+import DBG from 'debug';
+
+const debug = DBG('notes:debug');
+const dbgerror = DBG('notes:error');
 
 /**
  * Normalize the specified port value.
@@ -24,6 +29,8 @@ export function normalizePort(s: string): string | number | boolean {
  * Handle error that occurs during server startup.
  */
 export function onError(error: NodeJS.ErrnoException) {
+  dbgerror(error);
+
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -48,11 +55,7 @@ export function onError(error: NodeJS.ErrnoException) {
 export function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port;
-  console.log(
-    `🚀 Server is running on \x1b[36m\x1b[1m${bind}\x1b[0m` +
-      ' ' +
-      'press Ctrl-C to terminate....'
-  );
+  debug(`🚀 Server is running on \x1b[36m\x1b[1m${bind}\x1b[0m`);
 }
 
 class NotFoundError extends Error {
@@ -82,6 +85,7 @@ export const basicErrorHandler: ErrorRequestHandler<
 > = (err, req, res, next) => {
   if (res.headersSent) {
     // If headers have already been sent, pass the error to the next error handler middleware
+    debug(`basicErrorHandler HEADERS SENT error ${util.inspect(err)}`);
     return next(err);
   }
 
