@@ -1,10 +1,12 @@
 import http from 'http';
+import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
 import rfs from 'rotating-file-stream';
 import DBG from 'debug';
+// import capcon from 'capture-console';
 import cookieParser from 'cookie-parser';
 import {
   basicErrorHandler,
@@ -17,6 +19,14 @@ import cors from 'cors';
 import { __dirname } from './approotdir.js';
 import { router as notesRouter } from './routes/notes.js';
 import { InMemoryNotesStore } from './models/notes-memory.js';
+
+// capcon.startCapture(process.stdout, function (stdout) {
+//   fs.appendFileSync('stdout.txt', stdout, 'utf8');
+// });
+
+// capcon.startCapture(process.stderr, function (stderr) {
+//   fs.appendFileSync('stderr.txt', stderr, 'utf8');
+// });
 
 const debug = DBG('notes:debug');
 const dbgerror = DBG('notes:error');

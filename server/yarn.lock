@@ -10,6 +10,13 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/capture-console@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/capture-console/-/capture-console-1.0.1.tgz#803d2fb3a7683c7db16013492439aeac4c2d3869"
+  integrity sha512-fJyZjVE5oBHEX80XGpINFd3OjS/RsogK5dxCmqqK6lTZtugTH+U7tnrjbNoNDRnwXE/JMp3D5T75ZyLECH1hfQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/connect@*":
   version "3.4.35"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.35.tgz#5fcf6ae445e4021d1fc2219a4873cc73a3bb2ad1"
@@ -126,10 +133,23 @@ accepts@~1.3.8:
     mime-types "~2.1.34"
     negotiator "0.6.3"
 
+argle@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/argle/-/argle-1.1.1.tgz#0cfe3bc032c36b2f48ba42b9c17f89f70607e994"
+  integrity sha512-I7w1YZQR3zM8fQ6RCsX4jspaLb/gPqHt8s5v3FoBkE9sc2um71kdf+OAYfCGUGjYPT+ZPE7QmwgGDRcz7uVEUg==
+  dependencies:
+    lodash.isfunction "^3.0.8"
+    lodash.isnumber "^3.0.3"
+
 array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
   integrity sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==
+
+array-uniq@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/array-uniq/-/array-uniq-1.0.2.tgz#5fcc373920775723cfd64d65c64bef53bf9eba6d"
+  integrity sha512-GVYjmpL05al4dNlKJm53mKE4w9OOLiuVHWorsIA3YVz+Hu0hcn6PtE3Ydl0EqU7v+7ABC4mjjWsnLUxbpno+CA==
 
 basic-auth@~2.0.1:
   version "2.0.1"
@@ -168,6 +188,15 @@ call-bind@^1.0.0:
   dependencies:
     function-bind "^1.1.1"
     get-intrinsic "^1.0.2"
+
+capture-console@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/capture-console/-/capture-console-1.0.1.tgz#db63c39ac73239019badd7fbb10143eda380ff71"
+  integrity sha512-gUPJV8XKeCK7//SLa6XhI2a9Y+FtatkjrebAcldL5ilGhvfvJXALiJO2lMqBf6vkqWvrZ9nm/vcxxiNNwMsSbw==
+  dependencies:
+    argle "~1.1.1"
+    lodash.isfunction "~3.0.8"
+    randomstring "~1.1.5"
 
 content-disposition@0.5.4:
   version "0.5.4"
@@ -414,6 +443,16 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
+lodash.isfunction@^3.0.8, lodash.isfunction@~3.0.8:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+  integrity sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==
+
+lodash.isnumber@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz#3ce76810c5928d03352301ac287317f11c0b1ffc"
+  integrity sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw==
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -545,6 +584,13 @@ qs@6.11.0:
   integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
   dependencies:
     side-channel "^1.0.4"
+
+randomstring@~1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/randomstring/-/randomstring-1.1.5.tgz#6df0628f75cbd5932930d9fe3ab4e956a18518c3"
+  integrity sha512-JNZlJOCHjifKhZszDT8UYYkcIUgpJyGDobFMOBPic2/9h+esM0m1JzySt8nk4PjrxQeeYkNzdVP3XPpQOCzjZA==
+  dependencies:
+    array-uniq "1.0.2"
 
 range-parser@~1.2.1:
   version "1.2.1"
