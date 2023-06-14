@@ -36,14 +36,18 @@ export class Note implements INote {
   }
 
   get JSON() {
-    return JSON.stringify({
-      key: this.key,
-      title: this.title,
-      body: this.body,
-    });
+    return JSON.stringify(
+      {
+        key: this.key,
+        title: this.title,
+        body: this.body,
+      },
+      null,
+      4
+    );
   }
 
-  static fromJSON(json: any) {
+  static fromJSON(json: string) {
     const data = JSON.parse(json);
     if (
       typeof data !== 'object' ||
